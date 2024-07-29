@@ -63,6 +63,10 @@ function setlang(lang) {
     }
 }
 
+function currentlang() {
+    return localStorage.getItem("language");
+}
+
 const en = {
     "reh": "English, US",
     "language": "English, US",
@@ -102,6 +106,7 @@ const en = {
         "title": {
             "homepage": "Auto-navigate to Home",
             "consolewarnings": "Disable console warning",
+            "forceupdates": "Enable forced updates",
             "blockedmessages": "Hide blocked user messages",
             "invtyping": "Invisible typing",
             "imagewhitelist": "Allow images from any source",
@@ -120,6 +125,7 @@ const en = {
         "desc": {
             "homepage": "Instead of showing you the Start Page you get directly taken to home",
             "consolewarnings": "Hides warning message from console",
+            "forceupdates": "Shows a force update button allowing you to force an update even if you're already up to date or using a beta build. Reload settings to see changes.",
             "blockedmessages": "Show a warning or hide messages completely",
             "invtyping": "Other users won't see you typing",
             "imagewhitelist": "This allows any site to see your IP, use responsibly",
@@ -159,12 +165,15 @@ const en = {
     "inbox_sub": {
         "desc": "Notifications are displayed here.",
     },
+    "explore_sub": {
+        "trendingunavailable": "Sorry, Trending (Beta) is only available in English for now.",
+    },
     "live_sub": {
         "desc": "Messages won't be saved here."
     },
     "login_sub": {
         "title": "Login",
-        "desc": "This client was made by eri :>",
+        "desc": "meo by eri, leo by josh",
         "oldpass": "Old Password",
         "newpass": "New Password",
         "agreement": "Terms of Use & Privacy Policy",
@@ -278,6 +287,7 @@ const en = {
         "plugin": "Refresh Required!",
         "shortcuts": "Shortcuts",
         "copyuser": "Copied username to clipboard!",
+        "uploadimage": "Upload an image",
     },
     "profile": {
         "quote": "Quote",
@@ -301,10 +311,25 @@ const enuk = {
     },
     "general_list": {
         "title": {
+            "homepage": "Auto-navigate to Home",
+            "consolewarnings": "Disable console warning",
+            "forceupdates": "Enable forced updates",
+            "blockedmessages": "Hide blocked user messages",
+            "invtyping": "Invisible typing",
+            "imagewhitelist": "Allow images from any source",
+            "censorwords": "Censor blacklisted words",
+            "embeds": "Special embeds",
+            "reducemotion": "Reduce motion",
+            "showpostbuttons": "Always show post buttons",
+            "underlinelinks": "Always underline links",
+            "entersend": "Don't send on Enter",
+            "hideimages": "Hide images",
+            "widemode": "New Desktop Experience",
         },
         "desc": {
             "homepage": "Instead of showing you the Start Page, you're taken directly to the Home.",
             "consolewarnings": "Hides warning messages from the console.",
+            "forceupdates": "Shows a force update button allowing you to force an update even if you're already up to date or using a beta build. Reload settings to see changes.",
             "blockedmessages": "Shows a warning or hides messages completely.",
             "invtyping": "Other users won't see you typing.",
             "imagewhitelist": "Allows images from any site, use responsibly.",
@@ -323,9 +348,17 @@ const enuk = {
     },
     "inbox_sub": {
     },
+    "explore_sub": {
+        "trendingunavailable": "Sorry, Trending (Beta) is only available in English for now.",
+    },
     "live_sub": {
     },
     "login_sub": {
+        "title": "Login",
+        "desc": "meo by eri, leo by josh",
+        "oldpass": "Old Password",
+        "newpass": "New Password",
+        "agreement": "Terms of Use & Privacy Policy",
     },
     "leave_sub": {
     },
@@ -339,6 +372,10 @@ const enuk = {
     },
     "modals": {
         "clearls": "Clear Local Storage?",
+        "deleteacc": "Delete Account?",
+        "share": "Share",
+        "plugin": "Refresh Required!",
+        "uploadimage": "Upload an image",
     },
     "profile": {
         "persona": "Personalisation",
@@ -591,6 +628,7 @@ const es_es = {
         "title": {
             "homepage": "Navegación automática a Inicio",
             "consolewarnings": "Desactivar advertencias de consola",
+            "forceupdates": "Habilitar actualizaciones forzadas",
             "blockedmessages": "Ocultar mensajes de usuarios bloqueados",
             "invtyping": "Escritura invisible",
             "imagewhitelist": "Permitir imágenes de cualquier fuente",
@@ -605,6 +643,7 @@ const es_es = {
         "desc": {
             "homepage": "En lugar de mostrarte la Página de Inicio, serás llevado directamente a Inicio",
             "consolewarnings": "Oculta los mensajes de advertencia de la consola",
+            "forceupdates": "Muestra un botón de actualización forzada que te permite forzar una actualización incluso si ya estás actualizado o usando una versión beta. Recarga la configuración para ver los cambios.",
             "blockedmessages": "Mostrar una advertencia u ocultar los mensajes completamente",
             "invtyping": "Otros usuarios no verán que estás escribiendo",
             "imagewhitelist": "Esto permite que cualquier sitio vea tu IP, úsalo responsablemente",
@@ -638,6 +677,9 @@ const es_es = {
     },
     "inbox_sub": {
         "desc": "Las notificaciones se muestran aquí."
+    },
+    "explore_sub": {
+        "trendingunavailable": "Lo siento, Trending (Beta) solo está disponible en inglés por ahora."
     },
     "live_sub": {
         "desc": "Los mensajes no se guardarán aquí."
@@ -747,6 +789,7 @@ const es_es = {
         "deleteacc": "¿Eliminar cuenta?",
         "share": "Compartir",
         "plugin": "¡Requiere actualización!",
+        "uploadimage": "Subir una imagen"
     },
     "profile": {
         "quote": "Cita",
@@ -794,6 +837,7 @@ const de = {
         "title": {
             "homepage": "Automatisch zu Home gehen",
             "consolewarnings": "Konsolenwarnung ausschalten",
+            "forceupdates": "Enable forced updates", // update
             "blockedmessages": "Nachrichten von blockierten Nutzern verstecken",
             "invtyping": "Durchsichtiges Tippen",
             "imagewhitelist": "Bilder von jeder Quelle erlauben",
@@ -806,6 +850,7 @@ const de = {
         "desc": {
             "homepage": "Direkt zu Home navigieren, statt die Startseite anzuzeigen",
             "consolewarnings": "Die Warnmeldung in der Konsole nicht zeigen",
+            "forceupdates": "Shows a force update button allowing you to force an update even if you're already up to date or using a beta build. Reload settings to see changes.", // update
             "blockedmessages": "Nur eine Warnung zeigen, oder die Nachricht komplett verstecken",
             "invtyping": "Andere Nutzer werden dich nicht tippen sehen",
             "imagewhitelist": "Dadurch kann dadurch deine IP-Adresse sehen, nutze das verantwortlich",
@@ -838,11 +883,14 @@ const de = {
     "inbox_sub": {
         "desc": "Benachrichtigungen werden hier angezeigt.",
     },
+    "explore_sub": {
+        "trendingunavailable": "Entschuldigung, Trending (Beta) ist derzeit nur auf Englisch verfügbar.",
+    },
     "live_sub": {
     },
     "login_sub": {
         "title": "Anmelden",
-        "desc": "Dieser Client wurde von eri gemacht :>",
+        "desc": "meo von eri, leo von josh",
         "oldpass": "Altes Passwort",
         "newpass": "Neues Passwort",
         "agreement": "Geschäftsbedingungen und Datenschutzerklärung"
@@ -940,6 +988,7 @@ const de = {
         "deleteacc": "Konto löschen?",
         "share": "Teilen",
         "plugin": "Aktualisierung benötigt!",
+        "uploadimage": "Lade ein Bild hoch",
     },
     "profile": {
         "quote": "Zitat",
