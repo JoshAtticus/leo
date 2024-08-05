@@ -15,9 +15,9 @@
 let end = false;
 let page = "load";
 const sidediv = document.querySelectorAll(".side");
-    sidediv.forEach(function(sidediv) {
-        sidediv.classList.add("hidden");
-    });
+sidediv.forEach(function (sidediv) {
+    sidediv.classList.add("hidden");
+});
 let lul = 0;
 let eul;
 let sul = "";
@@ -28,9 +28,8 @@ if (settingsstuff().homepage) {
     pre = "start"
 }
 
-let meourl = 'https://eris.pages.dev/meo';
-
-let bridges = ['Discord', 'SplashBridge', 'gc'];
+let meourl = 'https://leo.atticat.tech';
+let bridges = ['Discord', 'SplashBridge', 'gc', 'Revower'];
 
 let ipBlocked = false;
 let openprofile = false;
@@ -144,16 +143,16 @@ function main() {
     meowerConnection = new WebSocket(server);
     let loggedin = false;
 
-    meowerConnection.addEventListener('error', function(event) {
+    meowerConnection.addEventListener('error', function (event) {
         //launch screen
     });
-    
+
     meowerConnection.onclose = (event) => {
         logout(true);
     };
     page = "login";
     loadtheme();
-    
+
     if ('windowControlsOverlay' in navigator) {
     }
 
@@ -214,8 +213,8 @@ function main() {
                         loadstgs();
                     } else {
                         loadchat(pre);
-                    }                
-                } else  {
+                    }
+                } else {
                     loadstart();
                 }
                 if (openprofile) {
@@ -350,19 +349,19 @@ function main() {
             sul = iul.trim().split(";");
             eul = sul;
             lul = sul.length - 1;
-            
+
             if (sul.length > 1) {
                 sul = sul.slice(0, -2).join(", ") + (sul.length > 2 ? ", " : "") + sul.slice(-2).join(".");
             } else {
                 sul = sul[0];
             }
-        
+
             if (page == "home") {
                 document.getElementById("info").innerText = lul + " users online (" + sul + ")";
             }
         }
     };
-    document.addEventListener("keydown", function(event) {
+    document.addEventListener("keydown", function (event) {
         if (page !== "settings" && page !== "explore" && page !== "login" && page !== "start") {
             const textarea = document.getElementById("msg");
             const emj = document.getElementById("emojin");
@@ -391,7 +390,7 @@ function main() {
             } else if (event.key === "Escape") {
                 closemodal();
                 closeImage();
-                if (opened===1) {
+                if (opened === 1) {
                     closepicker();
                 }
                 const editIndicator = document.getElementById("edit-indicator");
@@ -403,7 +402,7 @@ function main() {
                     replies.innerHTML = "";
                 }
                 textarea.blur();
-            } else if (event.keyCode >= 48 && event.keyCode <= 90 && textarea === document.activeElement && !settingsstuff().invtyping && lastTyped+3000 < Date.now()) {
+            } else if (event.keyCode >= 48 && event.keyCode <= 90 && textarea === document.activeElement && !settingsstuff().invtyping && lastTyped + 3000 < Date.now()) {
                 lastTyped = Date.now();
                 fetch(`https://api.meower.org/${page === "home" ? "" : "chats/"}${page}/typing`, {
                     method: "POST",
@@ -483,8 +482,8 @@ function main() {
 
 function loadLogin() {
     const pageContainer = document.getElementById("main");
-    pageContainer.innerHTML = 
-    `<div class='login'>
+    pageContainer.innerHTML =
+        `<div class='login'>
         <div class='login-inner'>
             <h2 class="login-header">${lang().meo_welcome}</h2>
             <input type='text' id='userinput' placeholder='${lang().meo_username}' class='login-text text' aria-label="username input" autocomplete="username">
@@ -494,9 +493,6 @@ function loadLogin() {
             <small>${lang().login_sub.desc}</small>
         </div>
         <div class="login-top">
-            <svg width="80" height="44.25" viewBox="0 0 321 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M124.695 17.2859L175.713 0.216682C184.63 -1.38586 192.437 6.14467 190.775 14.7463L177.15 68.2185C184.648 86.0893 187.163 104.122 187.163 115.032C187.163 143.057 174.929 178 95.4997 178C16.0716 178 3.83691 143.057 3.83691 115.032C3.83691 104.122 6.35199 86.0893 13.8498 68.2185L0.224791 14.7463C-1.43728 6.14467 6.3705 -1.38586 15.2876 0.216682L66.3051 17.2859C74.8856 14.6362 84.5688 13.2176 95.4997 13.429C106.431 13.2176 116.114 14.6362 124.695 17.2859ZM174.699 124.569H153.569V80.6255C153.569 75.6157 151.762 72.1804 146.896 72.1804C143.143 72.1804 139.529 74.6137 135.775 78.3353V124.569H114.785V80.6255C114.785 75.6157 112.977 72.1804 108.112 72.1804C104.22 72.1804 100.744 74.6137 96.9909 78.3353V124.569H76V54.4314H94.4887L96.0178 64.0216C102.134 57.5804 108.39 53 117.148 53C126.462 53 131.605 57.7235 134.107 64.0216C140.224 57.7235 146.896 53 155.376 53C168.026 53 174.699 61.1588 174.699 74.7569V124.569ZM247.618 89.3569C247.618 91.5039 247.479 93.7941 247.201 94.9392H206.331C207.443 105.961 213.838 110.255 223.012 110.255C230.519 110.255 237.887 107.392 245.393 102.955L247.479 118.127C240.111 122.994 231.075 126 220.371 126C199.936 126 185.34 114.835 185.34 89.7863C185.34 66.8843 198.963 53 217.452 53C238.304 53 247.618 69.0314 247.618 89.3569ZM227.6 83.0588C226.905 72.4667 223.29 67.0274 216.896 67.0274C211.057 67.0274 206.887 72.3235 206.192 83.0588H227.6ZM288.054 126C306.96 126 321 111.973 321 89.5C321 67.0274 307.099 53 288.193 53C269.426 53 255.525 67.1706 255.525 89.6431C255.525 112.116 269.287 126 288.054 126ZM288.193 70.749C296.256 70.749 300.704 78.3353 300.704 89.6431C300.704 100.951 296.256 108.537 288.193 108.537C280.269 108.537 275.821 100.808 275.821 89.5C275.821 78.049 280.13 70.749 288.193 70.749Z" fill="currentColor"></path>
-            </svg>
             <select id="login-language-sel" onchange="loginLang(this.value)">
             <option value="en" ${language === "en" ? "selected" : ""}>${en.language}</option>
             <option value="enuk" ${language === "enuk" ? "selected" : ""}>${enuk.language}</option>
@@ -534,14 +530,14 @@ function loadLogin() {
         </div>
         <div id='msgs'></div>
     </div>
-    `; 
+    `;
 }
 
 function loadpost(p) {
     let user;
     let content;
     let bridged = (p.u && bridges.includes(p.u));
-    
+
     if (bridged) {
         const rcon = p.p;
         const match = rcon.match(/^([a-zA-Z0-9_-]{1,20})?:([\s\S]+)?/m);
@@ -564,7 +560,7 @@ function loadpost(p) {
             user = p.u;
         }
     }
-    
+
     const postContainer = document.createElement("div");
     postContainer.classList.add("post");
     postContainer.setAttribute("tabindex", "0");
@@ -586,7 +582,7 @@ function loadpost(p) {
             }
         }
     }
-    
+
     if (blockedUsers.hasOwnProperty(user)) {
         if (settingsstuff().blockedmessages) {
             postContainer.setAttribute("style", "display:none;");
@@ -638,13 +634,12 @@ function loadpost(p) {
         bridged.setAttribute("title", lang().meo_bridged.title);
         pstinf.appendChild(bridged);
     }
-    
+
     pstinf.appendChild(pstdte);
     wrapperDiv.appendChild(pstinf);
 
     const roarer = /@([\w-]+)\s+"([^"]*)"\s+\(([^)]+)\)/g;
     const bettermeower = /@([\w-]+)\[([a-zA-Z0-9]+)\]/g;
-
 
     let matches1 = [...content.matchAll(roarer)];
     let matches2 = [...content.matchAll(bettermeower)];
@@ -696,7 +691,7 @@ function loadpost(p) {
     if (emojiRgx.test(content) || (meowerRgx.test(content) && p.emojis.length) || discordRgx.test(content)) {
         postContentText.classList.add('big');
     }
-    
+
     if (content) {
         wrapperDiv.appendChild(postContentText);
     }
@@ -716,10 +711,10 @@ function loadpost(p) {
             const g = attach(attachment);
             embedsDiv.appendChild(g);
         });
-    
+
         wrapperDiv.appendChild(embedsDiv);
     }
-    
+
 
     postContainer.appendChild(wrapperDiv);
 
@@ -766,7 +761,6 @@ function loadPfp(username, userData, button) {
             
             if (userData.avatar) {
                 const pfpurl = `https://uploads.meower.org/icons/${userData.avatar}`;
-
                 
                 pfpElement = document.createElement("div");
                 pfpElement.style.backgroundImage = `url(${pfpurl})`;
@@ -1093,15 +1087,15 @@ function pingusr(event) {
 
 function loadtheme() {
     const theme = localStorage.getItem("theme");
-    
+
     if (theme) {
         document.documentElement.classList.remove("dark-theme");
         document.documentElement.classList.add(theme + "-theme");
     }
-    
+
     const rootStyles = window.getComputedStyle(document.documentElement);
     const rootBackgroundColor = rootStyles.getPropertyValue('--background');
-    
+
     const metaThemeColor = document.querySelector("meta[name=theme-color]");
     if (metaThemeColor) {
         metaThemeColor.setAttribute("content", rootBackgroundColor);
@@ -1322,7 +1316,7 @@ function sidebars() {
     </div>
     </div>
     `;
-    
+
     let navlist = `
     <input type="button" class="navigation-button button" id="explore" value="${lang().page_explore}" onclick="loadexplore();" aria-label="explore" tabindex="0">
     <input type="button" class="navigation-button button" id="inbox" value="${lang().page_inbox}" onclick="loadchat('inbox')" aria-label="inbox" tabindex="0">
@@ -1334,27 +1328,27 @@ function sidebars() {
     `;
 
     loadPfp(localStorage.getItem("username"))
-    .then(pfpElem => {
-        if (pfpElem) {
-            const userAvatar = document.getElementById("uav");
-            let bgImageUrl = pfpElem.style.backgroundImage;
-            if (bgImageUrl) {
-                bgImageUrl = bgImageUrl.slice(5, -2);
-            }
-            
-            userAvatar.style.backgroundImage = `url(${bgImageUrl})`;
-            userAvatar.style.border = pfpElem.style.border.replace("3px", "3px");
-            userAvatar.classList.add("pfp-inner");
+        .then(pfpElem => {
+            if (pfpElem) {
+                const userAvatar = document.getElementById("uav");
+                let bgImageUrl = pfpElem.style.backgroundImage;
+                if (bgImageUrl) {
+                    bgImageUrl = bgImageUrl.slice(5, -2);
+                }
 
-            if (pfpElem.classList.contains("svg-avatar")) {
-                userAvatar.classList.add("svg-avatar");
+                userAvatar.style.backgroundImage = `url(${bgImageUrl})`;
+                userAvatar.style.border = pfpElem.style.border.replace("3px", "3px");
+                userAvatar.classList.add("pfp-inner");
+
+                if (pfpElem.classList.contains("svg-avatar")) {
+                    userAvatar.classList.add("svg-avatar");
+                }
             }
-        }
-    });
+        });
 
 
     if (localStorage.getItem("permissions") === "1") {
-    navlist = `
+        navlist = `
       <input type="button" class="navigation-button button" id="moderation" value="${lang().action.mod}" onclick="openModModal()" aria-label="moderate">` + navlist;
     }
 
@@ -1362,7 +1356,7 @@ function sidebars() {
     mdmdl.innerHTML += navlist;
 
     const sidediv = document.querySelectorAll(".side");
-    sidediv.forEach(function(sidediv) {
+    sidediv.forEach(function (sidediv) {
         sidediv.classList.remove("hidden");
     });
 
@@ -1417,7 +1411,7 @@ function renderChats() {
         const r = document.createElement("button");
         r.id = chat._id;
         r.className = `navigation-button button gcbtn`;
-        r.onclick = function() {
+        r.onclick = function () {
             loadchat(chat._id);
         };
 
@@ -1469,7 +1463,7 @@ function renderChats() {
         if (chat.nickname) {
             escnickname = escapeHTML(chat.nickname);
         }
-        
+
         const chatOps = document.createElement("div");
         chatOps.classList.add("chat-ops");
         chatOps.innerHTML = `
@@ -1523,6 +1517,16 @@ function loadstart() {
             <button class="ubtn button skeleton" aria-label="Skeleton"><div class="ubtnsa"><div class="start-pfp-outer"><div class="skeleton-avatar-small"></div></div></div></button>
             <button class="ubtn button skeleton" aria-label="Skeleton"><div class="ubtnsa"><div class="start-pfp-outer"><div class="skeleton-avatar-small"></div></div></div></button>
         </div>
+        <div class="trending">
+        <span class="user-header"><span>Trending</span></span>
+        <hr>
+        <div class="section trending-topics">
+        </div>
+        <div class="section trending-inner">
+        </div>
+        <hr>
+        <p style="font-size: 12px;">Powered by AtticusAI | Trending updates once every minute | AI can make things up, take everything with a grain of salt.</p>
+        </div>
         <div class="quick-btns">
         <button class="qbtn button" aria-label="create chat" onclick="createChatModal()">${lang().action.creategc}</button>
         <button class="qbtn button" aria-label="home" onclick="loadchat('home');">${lang().action.gohome}</button>
@@ -1530,36 +1534,39 @@ function loadstart() {
         <button class="qbtn button" aria-label="dm me" onclick="opendm('Eris')">${lang().action.dmme}</button>
     </div>
     `;
+
+    loadTrending();
+
     fetch('https://api.meower.org/ulist?autoget')
-    .then(response => response.json())
-    .then(data => {
-        let pl = ''
-        data.autoget.forEach(item => {
-            const gr = item._id.trim();
-            if (gr !== localStorage.getItem("username")) {
-                const profilecont = document.createElement('div');
-                profilecont.classList.add('start-pfp-outer');
-                if (item.avatar_color !== "!color" && data.avatar_color) {
-                    profilecont.classList.add('custom-bg');
-                }
-                if (item.avatar) {
-                    profilecont.innerHTML = `
+        .then(response => response.json())
+        .then(data => {
+            let pl = ''
+            data.autoget.forEach(item => {
+                const gr = item._id.trim();
+                if (gr !== localStorage.getItem("username")) {
+                    const profilecont = document.createElement('div');
+                    profilecont.classList.add('start-pfp-outer');
+                    if (item.avatar_color !== "!color" && data.avatar_color) {
+                        profilecont.classList.add('custom-bg');
+                    }
+                    if (item.avatar) {
+                        profilecont.innerHTML = `
                         <div class="avatar-small pfp-inner" style="border: 3px solid #${item.avatar_color}; background-color:#${item.avatar_color}; background-image: url(https://uploads.meower.org/icons/${item.avatar});" alt="Avatar" title="${item._id}"></div>
                     `;
-                } else if (item.pfp_data) {
-                    profilecont.innerHTML = `
+                    } else if (item.pfp_data) {
+                        profilecont.innerHTML = `
                         <div class="avatar-small svg-avatar pfp-inner" style="border: 3px solid #${item.avatar_color}; background-image: url(images/avatars/icon_${item.pfp_data - 1}.svg)" alt="Avatar" title="${item._id}"></div>
                     `;
-                } else {
-                    profilecont.innerHTML = `
+                    } else {
+                        profilecont.innerHTML = `
                         <div class="avatar-small svg-avatar pfp-inner" style="border: 3px solid #000; background-image: url(images/avatars/icon_-4.svg)" alt="Avatar" title="${item._id}"></div>
                     `;
+                    }
+                    pl += `<button class="ubtn button" aria-label="${gr}"><div class="ubtnsa" onclick="openUsrModal('${gr}')">${profilecont.outerHTML}${gr}</div><div class="ubtnsb" onclick="opendm('${gr}')" id="username"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22a10 10 0 1 0-8.45-4.64c.13.19.11.44-.04.61l-2.06 2.37A1 1 0 0 0 2.2 22H12Z" class=""></path></svg></div></button>`;
                 }
-                pl += `<button class="ubtn button" aria-label="${gr}"><div class="ubtnsa" onclick="openUsrModal('${gr}')">${profilecont.outerHTML}${gr}</div><div class="ubtnsb" onclick="opendm('${gr}')" id="username"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22a10 10 0 1 0-8.45-4.64c.13.19.11.44-.04.61l-2.06 2.37A1 1 0 0 0 2.2 22H12Z" class=""></path></svg></div></button>`;
-            }
+            });
+            document.querySelector(".start-users-online").innerHTML = pl;
         });
-        document.querySelector(".start-users-online").innerHTML = pl;
-    });
 
 }
 
@@ -1578,20 +1585,20 @@ function opendm(username) {
             'token': localStorage.getItem("token")
         }
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        chatCache[data._id] = data;
-        parent.loadchat(data._id);
-        parent.closemodal();
-    })
-    .catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-    });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            chatCache[data._id] = data;
+            parent.loadchat(data._id);
+            parent.closemodal();
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
 }
 
 function loadchat(chatId) {
@@ -1599,14 +1606,28 @@ function loadchat(chatId) {
     pre = chatId;
     if (!["home", "inbox", "livechat"].includes(chatId) && !chatCache[chatId]) {
         fetch(`https://api.meower.org/chats/${chatId}`, {
-            headers: {token: localStorage.getItem("token")}
+            headers: { token: localStorage.getItem("token") }
         })
-        .then(response => {
-            if (!response.ok) {
-                if (response.status === 404) {
-                    throw new Error("Chat not found");
+            .then(response => {
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error("Chat not found");
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                }
+                return response.json();
+            })
+            .then(data => {
+                chatCache[chatId] = data;
+                loadchat(chatId);
+            })
+            .catch(e => {
+                openUpdate(`Unable to open chat: ${e}`);
+                if (!settingsstuff().homepage) {
+                    loadstart();
                 } else {
-                    throw new Error('Network response was not ok');
+                    loadhome();
                 }
             }
             return response.json();
@@ -1779,7 +1800,7 @@ function logout(iskl) {
         document.getElementById("nav").innerHTML = "";
     if (document.getElementById("groups"))
         document.getElementById("groups").innerHTML = "";
-    document.querySelectorAll(".side").forEach(function(element) {
+    document.querySelectorAll(".side").forEach(function (element) {
         element.classList.add("hidden");
     });    
     document.querySelectorAll(".sidebar").forEach(function(element) {
@@ -1794,18 +1815,18 @@ function loadstgs() {
     pre = "settings";
 
     let navc
-        const pageContainer = document.getElementById("main");
-        const settingsContent = `
+    const pageContainer = document.getElementById("main");
+    const settingsContent = `
             <div class="settings-nav">
             </div>
             <div class="settings">
                 <div class="settings-inner"></div>
             </div>
             `
-        pageContainer.innerHTML = settingsContent;
+    pageContainer.innerHTML = settingsContent;
 
-        navc = document.querySelector(".nav-top");
-        navc.innerHTML = `
+    navc = document.querySelector(".nav-top");
+    navc.innerHTML = `
         <button class="trans" id="submit" value="Home" onclick="loadstart()" aria-label="Home">
             <svg width="32" height="32" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <g>
@@ -1854,7 +1875,7 @@ function loadGeneral() {
         </div>
         <h3>${lang().general_sub.privacy}</h3>
         <div class="fun-buttons">
-            <a href="https://github.com/3r1s-s/meo/issues" target="_blank" class="button blockeduser">${lang().action.bug}</a>
+            <a href="https://github.com/JoshAtticus/leo/issues" target="_blank" class="button blockeduser">${lang().action.bug}</a>
             <a href="https://meower.org/export/" target="_blank" class="button blockeduser">${lang().action.datarequest}</a>
         </div>
         <a style="font-size: 12px" href="https://meower.org/legal" target="_blank">${lang().login_sub.agreement}</a>
@@ -1870,10 +1891,10 @@ function loadGeneral() {
         <h3>${lang().general_sub.blockedwords}</h3>
         <div class="blockedwords list">
             <button class="blockedword button" onclick="blockWordSel()">${lang().action.blockword}</button>
-        </div>
-        <h3>${lang().general_sub.about}</h3>
-        <div class="stg-section">
-            <span>meo <span class="version"></span></span><br>
+            </div>
+            <h3>${lang().general_sub.about}</h3>
+            <div class="stg-section">
+            <span>leo <span class="version"></span></span><br>
             <span class="yeah subsubheader"></span>
         </div>
         <h3>${lang().general_sub.credits}</h3>
@@ -1988,8 +2009,14 @@ function createSettingSection(id, title, desc) {
 }
 
 async function gitstuff() {
+    // terrible fix
+    if (!document.querySelector('.version') || !document.querySelector('.yeah')) {
+        console.log('Required elements not found, skipping gitstuff execution.');
+        return;
+    }
+
     try {
-        const response = await fetch('https://api.github.com/repos/3r1s-s/meo/commits/main');
+        const response = await fetch('https://api.github.com/repos/JoshAtticus/leo/commits/main');
         const data = await response.json();
         console.log(data.sha);
         document.querySelector('.version').innerHTML = `
@@ -2387,16 +2414,16 @@ function loadAppearance() {
 
     cstmcsstxt.addEventListener('input', function () {
         const newCustomCSS = cstmcsstxt.value;
-        
+
         let customstyle = document.getElementById('customstyle');
         if (!customstyle) {
             customstyle = document.createElement('style');
             customstyle.id = 'customstyle';
             document.head.appendChild(customstyle);
         }
-        
+
         customstyle.textContent = newCustomCSS;
-        
+
         localStorage.setItem('customCSS', newCustomCSS);
     });
 
@@ -2447,7 +2474,7 @@ function saveCustomTheme() {
     if (themeCSS) {
         const blob = new Blob([themeCSS.innerText.replace(/^\.custom-theme\s*{\s*|\s*}$/g, '')], { type: 'text/css' });
         const url = URL.createObjectURL(blob);
-        
+
         const a = document.createElement('a');
         a.href = url;
         a.download = 'custom-theme.css';
@@ -2465,12 +2492,12 @@ function loadCustomThemeFile() {
     input.type = 'file';
     input.accept = '.css, .txt';
 
-    input.addEventListener('change', function() {
+    input.addEventListener('change', function () {
         const file = this.files[0];
 
         const reader = new FileReader();
 
-        reader.onload = function(event) {
+        reader.onload = function (event) {
             const themeCSS = event.target.result;
 
             applyCustomThemeFromFile(themeCSS);
@@ -2510,10 +2537,10 @@ function loadCustomCss() {
 
 function changeTheme(theme, button) {
     const selectedTheme = theme;
-  
+
     const previousTheme = localStorage.getItem("theme");
     if (previousTheme) {
-      document.documentElement.classList.remove(previousTheme + "-theme");
+        document.documentElement.classList.remove(previousTheme + "-theme");
     }
     document.documentElement.classList.add(selectedTheme + "-theme");
     localStorage.setItem("theme", selectedTheme);
@@ -2590,10 +2617,12 @@ function settingsstuff() {
             "reducemotion": false,
             "showpostbuttons": false,
             "underlinelinks": false,
+            "magnify": false,
             "entersend": false,
             "hideimages": false,
             "notifications": false,
-            "widemode": false
+            "widemode": false,
+            "discord": false
         };
         localStorage.setItem('settings', JSON.stringify(defaultSettings));
         return defaultSettings;
@@ -2647,11 +2676,11 @@ function launchscreen() {
     const orange = document.getElementById("main");
     orange.innerHTML = green;
     if (document.getElementById("msgs"))
-    document.getElementById("msgs").innerHTML = "";
+        document.getElementById("msgs").innerHTML = "";
     if (document.getElementById("nav"))
-    document.getElementById("nav").innerHTML = "";
+        document.getElementById("nav").innerHTML = "";
     if (document.getElementById("groups"))
-    document.getElementById("groups").innerHTML = "";
+        document.getElementById("groups").innerHTML = "";
 }
 
 function autoresize() {
@@ -2715,13 +2744,13 @@ function cancelEdit() {
 function openImage(url) {
     const baseURL = url.split('?')[0];
     const fileName = baseURL.split('/').pop();
-    
+
     document.documentElement.style.overflow = "hidden";
     const mdlbck = document.querySelector('.image-back');
-    
+
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.image-mdl');
         if (mdl) {
             mdl.innerHTML = `
@@ -2732,7 +2761,7 @@ function openImage(url) {
             </div>
             `;
         }
-    }  
+    }
 }
 
 function preventClose(event) {
@@ -2741,15 +2770,15 @@ function preventClose(event) {
 
 function closeImage() {
     document.documentElement.style.overflow = "";
-    
+
     const mdlbck = document.querySelector('.image-back');
-    
+
     if (mdlbck) {
         mdlbck.style.display = 'none';
     }
-    
+
     const mdl = document.querySelector('.image-mdl');
-    
+
     if (mdlbck) {
         mdl.style.background = '';
         mdl.classList.remove('custom-bg');
@@ -2774,18 +2803,18 @@ function createChat() {
         },
         body: JSON.stringify({ nickname })
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-    })
-    .then(data => {
-        chatCache[data._id] = data;
-        loadchat(data._id);
-        closemodal();
-    })
-    .catch(e => {
-        openUpdate(`Failed to create chat: ${e}`);
-    });
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            chatCache[data._id] = data;
+            loadchat(data._id);
+            closemodal();
+        })
+        .catch(e => {
+            openUpdate(`Failed to create chat: ${e}`);
+        });
 }
 
 function favChat(e, chatId) {
@@ -2820,11 +2849,11 @@ function closeChatModal(e, chatId, chatName) {
     }
 
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -2862,7 +2891,7 @@ function openModal(postId) {
 
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         if (mdl) {
             mdl.id = postId;
@@ -2889,13 +2918,13 @@ function openModal(postId) {
                     mdlt.innerHTML += `
                     <button class="modal-button" onclick="deletePost('${postId}')"><div>${lang().action.delete}</div><div class="modal-icon"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M15 3.999V2H9V3.999H3V5.999H21V3.999H15Z"></path><path fill="currentColor" d="M5 6.99902V18.999C5 20.101 5.897 20.999 7 20.999H17C18.103 20.999 19 20.101 19 18.999V6.99902H5ZM11 17H9V11H11V17ZM15 17H13V11H15V17Z"></path></svg></div></button>      
                     <button class="modal-button" onclick="editPost('${page}', '${postId}')"><div>${lang().action.edit}</div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.2929 9.8299L19.9409 9.18278C21.353 7.77064 21.353 5.47197 19.9409 4.05892C18.5287 2.64678 16.2292 2.64678 14.817 4.05892L14.1699 4.70694L19.2929 9.8299ZM12.8962 5.97688L5.18469 13.6906L10.3085 18.813L18.0201 11.0992L12.8962 5.97688ZM4.11851 20.9704L8.75906 19.8112L4.18692 15.239L3.02678 19.8796C2.95028 20.1856 3.04028 20.5105 3.26349 20.7337C3.48669 20.9569 3.8116 21.046 4.11851 20.9704Z" fill="currentColor"></path></svg></div></button>      
-                    `; 
+                    `;
                 }
 
                 if (localStorage.getItem("permissions") === "1") {
                     mdlt.innerHTML += `
                     <button class="modal-button" onclick="modPostModal('${postId}')"><div>${lang().action.mod}</div><div class="modal-icon"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.00001C15.56 6.00001 12.826 2.43501 12.799 2.39801C12.421 1.89801 11.579 1.89801 11.201 2.39801C11.174 2.43501 8.44 6.00001 5 6.00001C4.447 6.00001 4 6.44801 4 7.00001V14C4 17.807 10.764 21.478 11.534 21.884C11.68 21.961 11.84 21.998 12 21.998C12.16 21.998 12.32 21.96 12.466 21.884C13.236 21.478 20 17.807 20 14V7.00001C20 6.44801 19.553 6.00001 19 6.00001ZM15 16L12 14L9 16L10 13L8 11H11L12 8.00001L13 11H16L14 13L15 16Z"></path></svg></div></button>      
-                    `; 
+                    `;
                 }
             }
             mdbt = mdl.querySelector('.modal-bottom');
@@ -2903,12 +2932,12 @@ function openModal(postId) {
                 mdbt.innerHTML = ``;
             }
         }
-    }  
+    }
 }
 
 function openUsrModal(uId) {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -2920,7 +2949,7 @@ function openUsrModal(uId) {
                 mdlt.innerHTML = `
                 <iframe class="profile" src="profile/index.html?u=${uId}"></iframe>
                 `;
-                
+
                 fetch(`https://api.meower.org/users/${uId}`)
                 .then(response => response.json())
                 .then(data => {
@@ -2950,7 +2979,7 @@ function openUsrModal(uId) {
 
 function reportModal(id) {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -3006,21 +3035,21 @@ function sendReport(id) {
 
 async function closemodal(message) {
     document.documentElement.style.overflow = "";
-    
+
     const mdlbck = document.querySelector('.modal-back');
-    
+
     if (mdlbck) {
         mdlbck.style.display = 'none';
     }
-    
+
     const mdl = document.querySelector('.modal');
-    
+
     if (mdlbck) {
         mdl.id = '';
         mdl.style.background = '';
         mdl.classList.remove('custom-bg');
     }
-    
+
     if (message) {
         const delay = ms => new Promise(res => setTimeout(res, ms));
         await delay(100);
@@ -3030,7 +3059,7 @@ async function closemodal(message) {
 
 function openModModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -3079,16 +3108,16 @@ async function loadreports() {
             "token": localStorage.getItem("token")
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        const reports = data.autoget;
-        const modreports = document.querySelector('.modal-top');
-        
-        reports.forEach(report => {
-            if (report.type === 'post') {
-                const rprtbx = document.createElement('div');
-                rprtbx.classList.add('report-box');
-                rprtbx.innerHTML = `
+        .then(response => response.json())
+        .then(data => {
+            const reports = data.autoget;
+            const modreports = document.querySelector('.modal-top');
+
+            reports.forEach(report => {
+                if (report.type === 'post') {
+                    const rprtbx = document.createElement('div');
+                    rprtbx.classList.add('report-box');
+                    rprtbx.innerHTML = `
                     <div class="buttonContainer">
                         <div class='toolbarContainer'>
                             <div class='toolButton' onclick='closeReport("${report._id}", "false")'>
@@ -3115,13 +3144,13 @@ async function loadreports() {
                         </div>
                     </div>
                 `;
-                
-                modreports.appendChild(rprtbx);
-                
-                const reportsList = rprtbx.querySelector('.reports-list');
-                
-                report.reports.forEach(item => {
-                    reportsList.innerHTML += `
+
+                    modreports.appendChild(rprtbx);
+
+                    const reportsList = rprtbx.querySelector('.reports-list');
+
+                    report.reports.forEach(item => {
+                        reportsList.innerHTML += `
                     <li>
                         <p>User: ${item.user}</p>
                         <p>Reason: ${item.reason}</p>
@@ -3136,12 +3165,11 @@ async function loadreports() {
                             rpfp.replaceWith(pfpElement);
                         }
                     });
-                });
 
-            } else if (report.type === 'user') {                
-                const rprtbx = document.createElement('div');
-                rprtbx.classList.add('report-box');
-                rprtbx.innerHTML = `
+                } else if (report.type === 'user') {
+                    const rprtbx = document.createElement('div');
+                    rprtbx.classList.add('report-box');
+                    rprtbx.innerHTML = `
                     <div class="buttonContainer">
                         <div class='toolbarContainer'>
                             <div class='toolButton' onclick='closeReport("${report._id}", "false")'>
@@ -3167,13 +3195,13 @@ async function loadreports() {
                     </div>
                     </div>
                 `;
-                
-                modreports.appendChild(rprtbx);
-                
-                const reportsList = rprtbx.querySelector('.reports-list');
-                
-                report.reports.forEach(item => {
-                    reportsList.innerHTML += `
+
+                    modreports.appendChild(rprtbx);
+
+                    const reportsList = rprtbx.querySelector('.reports-list');
+
+                    report.reports.forEach(item => {
+                        reportsList.innerHTML += `
                     <li>
                         <p>User: ${item.user}</p>
                         <p>Reason: ${item.reason}</p>
@@ -3181,27 +3209,27 @@ async function loadreports() {
                     </li>
                     `;
 
-                    const rpfp = rprtbx.querySelector('.avatar');
-                    if (report.content.avatar) {
-                        rpfp.src = `https://uploads.meower.org/icons/${report.content.avatar}`
-                        rpfp.style = `border: 3px solid #${report.content.avatar_color};background-color:#${report.content.avatar_color};`
-                    } else {
-                        rpfp.src = `images/avatars/icon_${report.content.pfp_data - 1}.svg`
-                        rpfp.style = `border: 3px solid #${report.content.avatar_color};background-color:#fff;`
-                    }
-                });
-            }
+                        const rpfp = rprtbx.querySelector('.avatar');
+                        if (report.content.avatar) {
+                            rpfp.src = `https://uploads.meower.org/icons/${report.content.avatar}`
+                            rpfp.style = `border: 3px solid #${report.content.avatar_color};background-color:#${report.content.avatar_color};`
+                        } else {
+                            rpfp.src = `images/avatars/icon_${report.content.pfp_data - 1}.svg`
+                            rpfp.style = `border: 3px solid #${report.content.avatar_color};background-color:#fff;`
+                        }
+                    });
+                }
+            });
+        })
+        .catch(error => {
+            console.error("Error loading reports:", error);
         });
-    })
-    .catch(error => {
-        console.error("Error loading reports:", error);
-    });
 
 }
 
 function modUserModal(user) {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -3238,10 +3266,10 @@ async function loadmoduser(user) {
             "token": localStorage.getItem("token")
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        const modusr = document.querySelector('.mod-user');
-        modusr.innerHTML = `
+        .then(response => response.json())
+        .then(data => {
+            const modusr = document.querySelector('.mod-user');
+            modusr.innerHTML = `
         <span class="subheader">User Info</span>
         <div class="mod-post">
         <div class="pfp">
@@ -3278,73 +3306,73 @@ async function loadmoduser(user) {
             <button class="modal-button" onclick="sendAlert('${data._id}')">Send Alert</button>
         `;
 
-        const rpfp = document.querySelector('.mod-post .avatar');
-        if (data.avatar) {
-            rpfp.src = `https://uploads.meower.org/icons/${data.avatar}`;
-            rpfp.style.border = `3px solid #${data.avatar_color}`;
-            rpfp.style.backgroundColor = `#${data.avatar_color}`;
-        } else if (data.pfp_data) {
-            // legacy avatars
-            rpfp.src = `images/avatars/icon_${data.pfp_data - 1}.svg`;
-            rpfp.classList.add('svg-avatar');
-            rpfp.style.border = `3px solid #${data.avatar_color}`;
-            rpfp.style.backgroundColor = `#fff`;
-        } else {
-            rpfp.src = `images/avatars/icon_-4.svg`;
-            rpfp.classList.add('svg-avatar');
-            rpfp.style.border = `3px solid #fff`;
-            rpfp.style.backgroundColor = `#fff`;
-        }
+            const rpfp = document.querySelector('.mod-post .avatar');
+            if (data.avatar) {
+                rpfp.src = `https://uploads.meower.org/icons/${data.avatar}`;
+                rpfp.style.border = `3px solid #${data.avatar_color}`;
+                rpfp.style.backgroundColor = `#${data.avatar_color}`;
+            } else if (data.pfp_data) {
+                // legacy avatars
+                rpfp.src = `images/avatars/icon_${data.pfp_data - 1}.svg`;
+                rpfp.classList.add('svg-avatar');
+                rpfp.style.border = `3px solid #${data.avatar_color}`;
+                rpfp.style.backgroundColor = `#fff`;
+            } else {
+                rpfp.src = `images/avatars/icon_-4.svg`;
+                rpfp.classList.add('svg-avatar');
+                rpfp.style.border = `3px solid #fff`;
+                rpfp.style.backgroundColor = `#fff`;
+            }
 
-        const altlist = modusr.querySelector('#alts');
-        const iplist = modusr.querySelector('#ips');
+            const altlist = modusr.querySelector('#alts');
+            const iplist = modusr.querySelector('#ips');
 
-        data.alts.forEach(item => {
-            altlist.innerHTML += `
+            data.alts.forEach(item => {
+                altlist.innerHTML += `
             <li>
                 <span id="username" onclick="modUserModal('${item}')">${item}</span>
             </li>
             `;
-        });
+            });
 
-        data.recent_ips.forEach(item => {
-            iplist.innerHTML += `
+            data.recent_ips.forEach(item => {
+                iplist.innerHTML += `
             <div class="table-section">
                 <div class="mod-td" onclick="openUpdate('${item.netinfo._id}')">${item.ip}</div>
                 <div class="mod-td">${createDate(item.last_used)}</div>
                 <div class="mod-td">${item.netinfo.vpn}</div>
             </div>
             `;
-        });
-    
-        fetch(`https://api.meower.org/admin/notes/${data.uuid}`, {
-            method: "GET",
-            headers: {
-                "token": localStorage.getItem("token")
-            }
-        })
-        .then(response => response.json())
-        .then(noteData => {
-            if (noteData && noteData.notes) {
-                const mdpsnt = document.getElementById('mod-post-note');
-                mdpsnt.value = noteData.notes;
-            } else {
-                console.log("No data received from server, the note is probably blank");
-            }
+            });
+
+            fetch(`https://api.meower.org/admin/notes/${data.uuid}`, {
+                method: "GET",
+                headers: {
+                    "token": localStorage.getItem("token")
+                }
+            })
+                .then(response => response.json())
+                .then(noteData => {
+                    if (noteData && noteData.notes) {
+                        const mdpsnt = document.getElementById('mod-post-note');
+                        mdpsnt.value = noteData.notes;
+                    } else {
+                        console.log("No data received from server, the note is probably blank");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error loading note data:", error);
+                });
+
         })
         .catch(error => {
-            console.error("Error loading note data:", error);
+            console.error("Error loading post:", error);
         });
-    
-    })
-    .catch(error => {
-        console.error("Error loading post:", error);
-    });
 }
 
 function modPostModal(postid) {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -3384,16 +3412,16 @@ async function loadmodpost(postid) {
             "token": localStorage.getItem("token")
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data) {
-            fetch(`https://api.meower.org/users/${data.u}`)
-                .then(response => response.json())
-                .then(userData => {
-                    if (userData) {
-                        if (data.unfiltered_p) {
-                            const modpst = document.querySelector('.mod-posts');
-                            modpst.innerHTML = `
+        .then(response => response.json())
+        .then(data => {
+            if (data) {
+                fetch(`https://api.meower.org/users/${data.u}`)
+                    .then(response => response.json())
+                    .then(userData => {
+                        if (userData) {
+                            if (data.unfiltered_p) {
+                                const modpst = document.querySelector('.mod-posts');
+                                modpst.innerHTML = `
                                 <div class="mod-post">
                                     <div class="pfp">
                                         <img src="" alt="Avatar" class="avatar" style="" onclick="modUserModal('${data.u}')">
@@ -3409,9 +3437,9 @@ async function loadmodpost(postid) {
                                     </div>
                                 </div>
                             `;
-                        } else {
-                            const modpst = document.querySelector('.mod-posts');
-                            modpst.innerHTML = `
+                            } else {
+                                const modpst = document.querySelector('.mod-posts');
+                                modpst.innerHTML = `
                                 <div class="mod-post">
                                     <div class="pfp">
                                         <img src="" alt="Avatar" class="avatar" style="" onclick="modUserModal('${data.u}')">
@@ -3427,51 +3455,51 @@ async function loadmodpost(postid) {
                                     </div>
                                 </div>
                             `;
-                        }
-                        const rpfp = document.querySelector('.mod-posts .avatar');
-                        if (userData.avatar) {
-                            rpfp.src = `https://uploads.meower.org/icons/${userData.avatar}`;
-                            rpfp.style.border = `3px solid #${userData.avatar_color}`;
-                            rpfp.style.backgroundColor = `#${userData.avatar_color}`;
-                        } else {
-                            // legacy avatars
-                            rpfp.src = `images/avatars/icon_${userData.pfp_data - 1}.svg`;
-                            rpfp.classList.add('svg-avatar');
-                        }
-
-                        fetch(`https://api.meower.org/admin/notes/${postid}`, {
-                            method: "GET",
-                            headers: {
-                                "token": localStorage.getItem("token")
                             }
-                        })
-                        .then(response => response.json())
-                        .then(noteData => {
-                            if (noteData && noteData.notes) {
-                                const mdpsnt = document.getElementById('mod-post-note');
-                                mdpsnt.value = noteData.notes;
+                            const rpfp = document.querySelector('.mod-posts .avatar');
+                            if (userData.avatar) {
+                                rpfp.src = `https://uploads.meower.org/icons/${userData.avatar}`;
+                                rpfp.style.border = `3px solid #${userData.avatar_color}`;
+                                rpfp.style.backgroundColor = `#${userData.avatar_color}`;
                             } else {
-                                console.log("No data received from server, the note is probably blank");
+                                // legacy avatars
+                                rpfp.src = `images/avatars/icon_${userData.pfp_data - 1}.svg`;
+                                rpfp.classList.add('svg-avatar');
                             }
-                        })
-                        .catch(error => {
-                            console.error("Error loading note data:", error);
-                        });
-                        
-                    } else {
-                        console.error("Error: No user data received from server.");
-                    }
-                })
-                .catch(error => {
-                    console.error("Error loading user data:", error);
-                });
-        } else {
-            console.error("Error: No data received from server.");
-        }
-    })
-    .catch(error => {
-        console.error("Error loading post:", error);
-    });
+
+                            fetch(`https://api.meower.org/admin/notes/${postid}`, {
+                                method: "GET",
+                                headers: {
+                                    "token": localStorage.getItem("token")
+                                }
+                            })
+                                .then(response => response.json())
+                                .then(noteData => {
+                                    if (noteData && noteData.notes) {
+                                        const mdpsnt = document.getElementById('mod-post-note');
+                                        mdpsnt.value = noteData.notes;
+                                    } else {
+                                        console.log("No data received from server, the note is probably blank");
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error("Error loading note data:", error);
+                                });
+
+                        } else {
+                            console.error("Error: No user data received from server.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error loading user data:", error);
+                    });
+            } else {
+                console.error("Error: No data received from server.");
+            }
+        })
+        .catch(error => {
+            console.error("Error loading post:", error);
+        });
 }
 
 async function modDeletePost(postid) {
@@ -3495,7 +3523,7 @@ async function modDeletePost(postid) {
 
 function updateNote(postid) {
     const note = document.getElementById('mod-post-note').value;
-    
+
     fetch(`https://api.meower.org/admin/notes/${postid}`, {
         method: "PUT",
         headers: {
@@ -3506,17 +3534,17 @@ function updateNote(postid) {
             notes: note
         })
     })
-    .then(response => response.json())
-    .then(data => {
-    })
-    .catch(error => {
-        console.error("Error updating note:", error);
-    });
+        .then(response => response.json())
+        .then(data => {
+        })
+        .catch(error => {
+            console.error("Error updating note:", error);
+        });
 }
 
 function sendAlert(userid) {
     const note = document.getElementById('mod-user-alert').value;
-    
+
     fetch(`https://api.meower.org/admin/users/${userid}/alert`, {
         method: "POST",
         headers: {
@@ -3527,12 +3555,12 @@ function sendAlert(userid) {
             content: note
         })
     })
-    .then(response => response.json())
-    .then(data => {
-    })
-    .catch(error => {
-        console.error("Error sending alert:", error);
-    });
+        .then(response => response.json())
+        .then(data => {
+        })
+        .catch(error => {
+            console.error("Error sending alert:", error);
+        });
 }
 
 function closeReport(postid, action) {
@@ -3547,12 +3575,12 @@ function closeReport(postid, action) {
                 status: "action.taken"
             })
         })
-        .then(response => response.json())
-        .then(data => {
-        })
-        .catch(error => {
-            console.error("Error updating report:", error);
-        });
+            .then(response => response.json())
+            .then(data => {
+            })
+            .catch(error => {
+                console.error("Error updating report:", error);
+            });
     } else {
         fetch(`https://api.meower.org/admin/reports/${postid}`, {
             method: "PATCH",
@@ -3564,22 +3592,22 @@ function closeReport(postid, action) {
                 status: "no_action_taken"
             })
         })
-        .then(response => response.json())
-        .then(data => {
-        })
-        .catch(error => {
-            console.error("Error updating report:", error);
-        });
+            .then(response => response.json())
+            .then(data => {
+            })
+            .catch(error => {
+                console.error("Error updating report:", error);
+            });
     }
 }
 
 function openUpdate(message) {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -3599,11 +3627,11 @@ function openUpdate(message) {
 
 function createChatModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -3626,17 +3654,17 @@ function createChatModal() {
 
 function blockWordSel() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
             const mdlt = mdl.querySelector('.modal-top');
             if (mdlt) {
-                    mdlt.innerHTML = `
+                mdlt.innerHTML = `
                     <h3>${lang().modals.blockword}</h3>
                     <input id="block-word-input" class="mdl-inp" placeholder="Word">
                     `;
@@ -3653,17 +3681,17 @@ function blockWordSel() {
 
 function blockUserSel() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
             const mdlt = mdl.querySelector('.modal-top');
             if (mdlt) {
-                    mdlt.innerHTML = `
+                mdlt.innerHTML = `
                     <h3>${lang().modals.blockauser}</h3>
                     <input id="block-user-input" class="mdl-inp" placeholder="JoshAtticus">
                     `;
@@ -3680,11 +3708,11 @@ function blockUserSel() {
 
 function blockUserModal(user) {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -3712,11 +3740,11 @@ function blockUserModal(user) {
 
 function imagemodal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -3818,22 +3846,22 @@ function mdlreply(event) {
         const username = postContainer.querySelector('#username').innerText;
         if (postContainer.querySelector('p')) {
             postcont = postContainer.querySelector('p').innerText
-            .replace(/\n/g, ' ')
-            .replace(/@\w+/g, '')
-            .split(' ')
-            .slice(0, 6)
-            .join(' ');
+                .replace(/\n/g, ' ')
+                .replace(/@\w+/g, '')
+                .split(' ')
+                .slice(0, 6)
+                .join(' ');
         } else {
             postcont = "";
         }
         const ogmsg = document.getElementById('msg').value
-        
+
         const postId = postContainer.id;
         document.getElementById('msg').value = `@${username} "${postcont}..." (${postId})\n${ogmsg}`;
         document.getElementById('msg').focus();
         autoresize();
     }
-    
+
     closemodal();
 }
 
@@ -3871,23 +3899,72 @@ function loadexplore() {
     <h3>Statistics</h3>
     <div class="section stats">
     </div>
+    <div class="trending">
+        <span class="user-header"><span>Trending</span><bridge>Beta</bridge></span>
+        <hr>
+        <div class="section trending-topics">
+        </div>
+        <div class="section trending-inner">
+        </div>
+        <hr>
+        <p style="font-size: 12px;">Powered by AtticusAI | Trending updates once every minute | AI can make things up, take everything with a grain of salt.</p>
     </div>
+    </div>
+    <br>
     `;
-    
+
     sidebars();
 
     loadstats();
 
+    loadTrending();
+}
+
+function loadTrending() {
+    const currentLanguage = currentlang();
+    if (currentLanguage !== 'en' && currentLanguage !== 'enuk') {
+        document.querySelector('.trending-inner').innerHTML = lang().explore_sub.trendingunavailable;
+        document.querySelector('.trending-topics').remove();
+        return;
+    }
+
+    // Show loading text
+    document.querySelector('.trending-inner').innerHTML = 'Loading...';
+
+    fetch('https://leoextended.atticat.tech/ai/trending')
+        .then(response => response.json())
+        .then(data => {
+            // Split the data into an array, then map each item to a list item
+            const topics = data.trends;
+            const listData = data.list.split('\n').map(item => {
+                // Replace @username with the desired HTML structure
+                const replacedItem = item.replace(/@([-\w]+)/g, (match, username) => {
+                    return `<span id="username" class="attachment" onclick="openUsrModal('${username}')">@${username}</span>`;
+                });
+                return `<p class="trending-item">${replacedItem.replace(/^- /, '')}</p>`;
+            }).join('');
+            document.querySelector('.trending-inner').innerHTML = `
+        <div>${listData}</div>
+        `;
+            document.querySelector('.trending-topics').innerHTML = `
+        <div><span style="font-weight: bold;">${topics}</span></div>
+        `;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            document.querySelector('.trending-inner').innerHTML = "Ruh roh! Something went wrong and Trending (Beta) couldn't load :(";
+            document.querySelector('.trending-topics').remove();
+        });
 }
 
 function gotousr() {
-    event.preventDefault(); 
+    event.preventDefault();
     openUsrModal(document.getElementById("usrinp").value);
     document.getElementById("usrinp").blur();
 }
 
 function modgotousr() {
-    event.preventDefault(); 
+    event.preventDefault();
     modUserModal(document.getElementById("usrinpmd").value);
 }
 
@@ -4077,11 +4154,11 @@ function selectFiles() {
 
 function goAnywhere() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-qkshr';
         if (mdl) {
@@ -4158,18 +4235,18 @@ function goTo() {
 
 function searchChats(nickname) {
     for (const chatId in chatCache) {
-      if (chatCache.hasOwnProperty(chatId)) {
-        const chat = chatCache[chatId];
-        if (chat.nickname) {
-          if (chat.nickname.toLowerCase() === nickname.toLowerCase()) {
-            return chat._id;
-          }
+        if (chatCache.hasOwnProperty(chatId)) {
+            const chat = chatCache[chatId];
+            if (chat.nickname) {
+                if (chat.nickname.toLowerCase() === nickname.toLowerCase()) {
+                    return chat._id;
+                }
+            }
         }
-      }
     }
     return null;
-  }
-  
+}
+
 
 function populateSearch() {
     const query = document.getElementById("goanywhere").value.toLowerCase();
@@ -4178,26 +4255,26 @@ function populateSearch() {
         searchPopulation.innerHTML = '';
         const usernames = Object.keys(pfpCache).filter(username => username.toLowerCase().includes(query));
         const groupChats = Object.values(chatCache).filter(chat => chat.nickname && chat.nickname.toLowerCase().includes(query));
-        usernames.forEach(username => {        
+        usernames.forEach(username => {
             const item = document.createElement('button');
             item.innerText = '@' + username
             item.classList.add('searchitem');
             item.id = 'srchuser';
             item.setAttribute("tabindex", "0");
-            item.onclick = function() {
+            item.onclick = function () {
                 opendm(username);
                 closemodal();
             };
             searchPopulation.appendChild(item);
         });
-        
-        groupChats.forEach(chat => {        
+
+        groupChats.forEach(chat => {
             const item = document.createElement('button');
             item.innerText = chat.nickname
             item.classList.add('searchitem');
             item.id = 'srchchat';
             item.setAttribute("tabindex", "0");
-            item.onclick = function() {
+            item.onclick = function () {
                 loadchat(chat._id);
                 closemodal();
             };
@@ -4238,7 +4315,7 @@ function blockUser(user) {
         toggle = 2;
         blockedUsers[user] = true;
     }
-    
+
     fetch(`https://api.meower.org/users/${user}/relationship`, {
         method: "PATCH",
         headers: {
@@ -4249,12 +4326,12 @@ function blockUser(user) {
             state: toggle
         })
     })
-    .then(response => response.json())
-    .then(data => {
-    })
-    .catch(error => {
-        console.error("error:", error);
-    });
+        .then(response => response.json())
+        .then(data => {
+        })
+        .catch(error => {
+            console.error("error:", error);
+        });
     if (page = 'settings') {
         loadstgs();
     }
@@ -4263,12 +4340,12 @@ function blockUser(user) {
 
 function deleteTokensModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -4292,12 +4369,12 @@ function deleteTokensModal() {
 
 function changePasswordModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -4325,12 +4402,12 @@ function changePasswordModal() {
 
 function clearLocalstorageModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
         mdlbck.style.display = 'flex';
-        
+
         const mdl = mdlbck.querySelector('.modal');
         mdl.id = 'mdl-uptd';
         if (mdl) {
@@ -4354,7 +4431,7 @@ function clearLocalstorageModal() {
 
 function shareModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -4366,7 +4443,8 @@ function shareModal() {
             if (mdlt) {
                 mdlt.innerHTML = `
                 <h3>${lang().modals.share}</h3>
-                <input id="share" class="mdl-inp" type="text" value="https://eris.pages.dev/meo/" readonly>
+
+                <input id="share" class="mdl-inp" type="text" value="https://leo.atticat.tech/" readonly>
                 `;
             }
             const mdbt = mdl.querySelector('.modal-bottom');
@@ -4380,7 +4458,7 @@ function shareModal() {
 
 function agreementModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -4424,7 +4502,7 @@ function agreementModal() {
 
 function errorModal(header, text) {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     const mdl = mdlbck.querySelector('.modal');
     const mdlt = mdl.querySelector('.modal-top');
@@ -4489,7 +4567,7 @@ function deleteAccount(password) {
 
 function DeleteAccountModal() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -4535,7 +4613,7 @@ function confirmDelete() {
 
 function modalPluginup() {
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
 
     if (mdlbck) {
@@ -4629,7 +4707,7 @@ function openGcModal(chatId) {
 
     const data = chatCache[chatId];
     document.documentElement.style.overflow = "hidden";
-    
+
     const mdlbck = document.querySelector('.modal-back');
     if (mdlbck) {
         mdlbck.style.display = 'flex';
