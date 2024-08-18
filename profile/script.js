@@ -35,7 +35,6 @@ function fetchprofile() {
             }
 
             let quote;
-            let pronouns;
             
             if (typeof md !== 'undefined') {
                 md.disable(['image']);
@@ -43,7 +42,6 @@ function fetchprofile() {
                 
                 const regex = /\[(.*?)\]/;
                 const match = quote.match(regex);
-                pronouns = match ? match[1] : "";
                 quote = quote.replace(regex, '');                                                      
             } else {
                 quote = oldMarkdown(data.quote);
