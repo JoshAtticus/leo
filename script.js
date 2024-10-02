@@ -3485,13 +3485,18 @@ async function loadPlugins() {
             <button onclick="resetPlugins();handleHaptics();" class="button blockeduser">${lang().action.resetplugins}</button>
 
             <h3>${lang().settings_plugins}</h3>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <input type="text" id="pluginSearch" placeholder="Search plugins..." class="plugin-search search-input" style="margin-left: 0px; max-width: 50%;">
+                <div style="display: flex; align-items: center;">
+                    <div class="plugintoggle" id="hideCautionPluginsToggle">
+                        <svg viewBox="0 0 24 24" height="20" width="20" aria-hidden="true" focusable="false" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="check">
+                            <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"></path>
+                        </svg>
+                    </div>
+                    <label style="margin-left: 10px;">Hide Flag Plugins</label>
+                </div>
+            </div>
             <div class='plugins'>
-            <div class="section plugin"><label>----<input type="checkbox" id="placeholder" class="settingstoggle" disabled><p class="pluginsub">--------------</p><p class="subsubheader">-----------</p></label></div>
-            <div class="section plugin"><label>----<input type="checkbox" id="placeholder" class="settingstoggle" disabled><p class="pluginsub">--------------</p><p class="subsubheader">-----------</p></label></div>
-            <div class="section plugin"><label>----<input type="checkbox" id="placeholder" class="settingstoggle" disabled><p class="pluginsub">--------------</p><p class="subsubheader">-----------</p></label></div>
-            <div class="section plugin"><label>----<input type="checkbox" id="placeholder" class="settingstoggle" disabled><p class="pluginsub">--------------</p><p class="subsubheader">-----------</p></label></div>
-            <div class="section plugin"><label>----<input type="checkbox" id="placeholder" class="settingstoggle" disabled><p class="pluginsub">--------------</p><p class="subsubheader">-----------</p></label></div>
-            <div class="section plugin"><label>----<input type="checkbox" id="placeholder" class="settingstoggle" disabled><p class="pluginsub">--------------</p><p class="subsubheader">-----------</p></label></div>
             </div>
             <hr>
             <span>${lang().plugins_sub.desc} <a href='https://github.com/3r1s-s/meo-plugins' target="_blank" id='link'>${lang().plugins_sub.link}</a></span>
@@ -3505,6 +3510,34 @@ async function loadPlugins() {
     pluginsData.forEach(plugin => {
         const isEnabled = enabledPlugins[plugin.name] || false;
         addPlugin(plugin, isEnabled);
+    });
+
+    // Add search functionality
+    const searchInput = document.getElementById('pluginSearch');
+    const hideCautionToggle = document.getElementById('hideCautionPluginsToggle');
+
+    searchInput.addEventListener('input', () => filterPlugins(pluginsData));
+    hideCautionToggle.addEventListener('click', () => {
+        hideCautionToggle.classList.toggle('checked');
+        filterPlugins(pluginsData);
+    });
+}
+
+function filterPlugins(pluginsData) {
+    const searchInput = document.getElementById('pluginSearch').value.toLowerCase();
+    const hideCaution = document.getElementById('hideCautionPluginsToggle').classList.contains('checked');
+
+    let pluginsList = document.querySelector(".plugins");
+    pluginsList.innerHTML = '';
+
+    pluginsData.forEach(plugin => {
+        const matchesSearch = plugin.name.toLowerCase().includes(searchInput) || plugin.description.toLowerCase().includes(searchInput);
+        const showCaution = !(hideCaution && plugin.flags === '1');
+
+        if (matchesSearch && showCaution) {
+            const isEnabled = JSON.parse(localStorage.getItem('enabledPlugins'))?.[plugin.name] || false;
+            addPlugin(plugin, isEnabled);
+        }
     });
 }
 
@@ -3549,9 +3582,7 @@ function addPlugin(plugin, isEnabled) {
     
         modalPluginup();
     });
-    
 
-    // Set initial state
     if (isEnabled) {
         pluginToggle.classList.add('checked');
     }
