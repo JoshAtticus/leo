@@ -26,6 +26,7 @@ if (settingsstuff().homepage) {
 } else {
     pre = "start"
 }
+let loadpre = 0;
 let meourl = 'https://leo.atticat.tech';
 let bridges = ['Discord', 'SplashBridge', 'gc', 'Revower'];
 
@@ -54,6 +55,14 @@ if (localStorage.getItem("blockedWords")) {
 }
 
 let lastTyped = 0;
+
+let birthday = 1;
+
+if (birthday === 1) {
+    const script = document.createElement("script");
+    script.src = "https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js";
+    document.head.appendChild(script);
+}
 
 setAccessibilitySettings()
 loadSavedPlugins();
@@ -167,6 +176,16 @@ function main() {
     }
 
     meowerConnection.onopen = () => {
+        if (document.querySelector('#loading')) {
+            document.querySelector('#loading').style.setProperty('--load', `100%`);
+        } else {
+            console.log("Reconnecting...");
+        }
+        if (birthday === 1) {   
+            party.confetti(document.body, {
+                count: party.variation.range(20, 40)
+            });
+        }
         if (localStorage.getItem("token") != undefined && localStorage.getItem("username") != undefined) {
             meowerConnection.send(JSON.stringify({
                 cmd: "authpswd",
@@ -784,8 +803,8 @@ function loadpost(p) {
     postContentText.className = "post-content";
     // tysm tni <3
     if (typeof md !== 'undefined') {
-        md.disable(['image']);
-        postContentText.innerHTML = erimd(md.render(content.replace(/&/g, '&amp;')));
+        md.disable(['image', 'link']);
+        postContentText.innerHTML = erimd(md.render(content));
         postContentText.innerHTML = meowerEmojis(postContentText.innerHTML, p.emojis || []);
         postContentText.innerHTML = buttonbadges(postContentText);
     } else {
@@ -6492,27 +6511,6 @@ function createModal(data) {
     }
 }
 
-load()
-
-function load() {
-    const loading = document.querySelector('#loading');
-    if (loading) {
-        let loadpre = 0;
-        const interval = setInterval(() => {
-            loadpre += Math.random() * 5;
-            loading.style.setProperty('--load', `${loadpre}%`);
-            
-
-            if (loadpre >= 100) {
-                clearInterval(interval);
-                meoStart();
-            }
-        }, 25);
-    }
-}
-
 // work on this
-function meoStart() {
-    main();
-    setInterval(ping, 25000);
-}
+main();
+setInterval(ping, 25000);
