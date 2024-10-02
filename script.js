@@ -156,8 +156,8 @@ if (urlParams.has('openprofile')) {
 function main() {
     meowerConnection = new WebSocket(server);
 
-    meowerConnection.addEventListener('error', function (event) {
-        //launch screen
+    meowerConnection.addEventListener('error', function(event) {
+        openUpdate('Connection error, please try again later!');
     });
 
     meowerConnection.onclose = (event) => {
@@ -1966,6 +1966,7 @@ function loadchat(chatId) {
     }
 
     renderTyping();
+    // hell9o kris
 }
 
 async function loadposts(pageNo) {
@@ -4351,7 +4352,7 @@ function openModal(postId) {
             const mdlt = mdl.querySelector('.modal-top');
             if (mdlt) {
                 mdlt.innerHTML = `${post.post_origin !== 'inbox' ? `
-                <button class="modal-button" onclick="mdlreply(event);handleHaptics();"><div>${lang().action.reply}</div><div class="modal-icon"><svg class="icon_d1ac81" width="24" height="24" viewBox="0 0 24 24"><path d="M10 8.26667V4L3 11.4667L10 18.9333V14.56C15 14.56 18.5 16.2667 21 20C20 14.6667 17 9.33333 10 8.26667Z" fill="currentColor"></path></svg></div></button>
+                <button class="modal-button" onclick="reply('${postId}');handleHaptics();"><div>${lang().action.reply}</div><div class="modal-icon"><svg class="icon_d1ac81" width="24" height="24" viewBox="0 0 24 24"><path d="M10 8.26667V4L3 11.4667L10 18.9333V14.56C15 14.56 18.5 16.2667 21 20C20 14.6667 17 9.33333 10 8.26667Z" fill="currentColor"></path></svg></div></button>
                 <button class="modal-button" onclick="mdlpingusr(event);handleHaptics();"><div>${lang().action.mention}</div><div class="modal-icon"><svg class="icon" height="24" width="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12C2 17.515 6.486 22 12 22C14.039 22 15.993 21.398 17.652 20.259L16.521 18.611C15.195 19.519 13.633 20 12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12V12.782C20 14.17 19.402 15 18.4 15L18.398 15.018C18.338 15.005 18.273 15 18.209 15H18C17.437 15 16.6 14.182 16.6 13.631V12C16.6 9.464 14.537 7.4 12 7.4C9.463 7.4 7.4 9.463 7.4 12C7.4 14.537 9.463 16.6 12 16.6C13.234 16.6 14.35 16.106 15.177 15.313C15.826 16.269 16.93 17 18 17L18.002 16.981C18.064 16.994 18.129 17 18.195 17H18.4C20.552 17 22 15.306 22 12.782V12C22 6.486 17.514 2 12 2ZM12 14.599C10.566 14.599 9.4 13.433 9.4 11.999C9.4 10.565 10.566 9.399 12 9.399C13.434 9.399 14.6 10.565 14.6 11.999C14.6 13.433 13.434 14.599 12 14.599Z"></path></svg></div></button>
                 <button class="modal-button" onclick="reportModal(event);handleHaptics();"><div>${lang().action.report}</div><div class="modal-icon"><svg height="20" width="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M20 6.00201H14V3.00201C14 2.45001 13.553 2.00201 13 2.00201H4C3.447 2.00201 3 2.45001 3 3.00201V22.002H5V14.002H10.586L8.293 16.295C8.007 16.581 7.922 17.011 8.076 17.385C8.23 17.759 8.596 18.002 9 18.002H20C20.553 18.002 21 17.554 21 17.002V7.00201C21 6.45001 20.553 6.00201 20 6.00201Z"></path></svg></div></button>      
                 ` : ''}
@@ -5528,22 +5529,41 @@ function addAttachment(file) {
         </div>
         `;
         element.querySelector(".attachment-wrapper").querySelector(".delete-attach").onclick = () => { attachment.cancel(""); };
+
         if (file.type.includes("image/") && file.size < (10 << 20)) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                const img = document.createElement("img");
-                img.classList.add("image-pre");
+                const img = new Image();
                 img.src = reader.result;
-                img.onclick = () => {
-                    openImage(reader.result);
-                };
-    
-                const attachmentMedia = document.createElement("div");
-                attachmentMedia.classList.add("attachment-media");
-                attachmentMedia.appendChild(img);
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    const ctx = canvas.getContext("2d");
 
-                const attachmentWrapper = element.querySelector(".attachment-wrapper")
-                attachmentWrapper.insertBefore(attachmentMedia, attachmentWrapper.querySelector(".attachment-name"));
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    ctx.drawImage(img, 0, 0);
+
+                    canvas.toBlob((blob) => {
+                        file = new File([blob], file.name, { type: file.type });
+
+                        const imgPreview = document.createElement("img");
+                        imgPreview.classList.add("image-pre");
+                        imgPreview.src = URL.createObjectURL(file);
+                        imgPreview.onclick = () => {
+                            openImage(imgPreview.src);
+                        };
+
+                        const attachmentMedia = document.createElement("div");
+                        attachmentMedia.classList.add("attachment-media");
+                        attachmentMedia.appendChild(imgPreview);
+
+                        const attachmentWrapper = element.querySelector(".attachment-wrapper");
+                        attachmentWrapper.insertBefore(attachmentMedia, attachmentWrapper.querySelector(".attachment-name"));
+
+                        uploadFile(file);
+                    }, file.type);
+                };
             };
             reader.readAsDataURL(file);
         } else {
@@ -5559,31 +5579,35 @@ function addAttachment(file) {
             attachmentOther.classList.add("attachment-other");
             attachmentOther.appendChild(otherPre);
 
-            const attachmentWrapper = element.querySelector(".attachment-wrapper")
+            const attachmentWrapper = element.querySelector(".attachment-wrapper");
             attachmentWrapper.insertBefore(attachmentOther, attachmentWrapper.querySelector(".attachment-name"));
+
+            uploadFile(file);
         }
-        
+
         document.getElementById('images-container').appendChild(element);
 
-        xhr.open("POST", "https://uploads.meower.org/attachments");
-        xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
-        xhr.upload.onprogress = (ev) => {
-            const percentage = `${Number((ev.loaded / ev.total) * 100).toFixed(2)}%`;
-            element.querySelector(".attachment-progress").style.setProperty('--pre', `${percentage}`);
-            element.querySelector(".attachment-progress span").innerText = `${percentage}`;
-        };
-        xhr.onload = () => {
-            element.querySelector(".attachment-progress").style.setProperty('--pre', `0`);
-            const attachmentProgress = element.querySelector(".attachment-progress").querySelector("span");
-            attachmentProgress.remove();
+        function uploadFile(fileToSend) {
+            xhr.open("POST", "https://uploads.meower.org/attachments");
+            xhr.setRequestHeader("Authorization", localStorage.getItem("token"));
+            xhr.upload.onprogress = (ev) => {
+                const percentage = `${Number((ev.loaded / ev.total) * 100).toFixed(2)}%`;
+                element.querySelector(".attachment-progress").style.setProperty('--pre', `${percentage}`);
+                element.querySelector(".attachment-progress span").innerText = `${percentage}`;
+            };
+            xhr.onload = () => {
+                element.querySelector(".attachment-progress").style.setProperty('--pre', `0`);
+                const attachmentProgress = element.querySelector(".attachment-progress").querySelector("span");
+                attachmentProgress.remove();
 
-            resolve(JSON.parse(xhr.response));
-        };
-        xhr.onerror = (error) => {
-            attachment.cancel(error);
-        };
-        formData.append("file", file);
-        xhr.send(formData);
+                resolve(JSON.parse(xhr.response));
+            };
+            xhr.onerror = (error) => {
+                attachment.cancel(error);
+            };
+            formData.append("file", fileToSend);
+            xhr.send(formData);
+        }
     });
 }
 
