@@ -3498,6 +3498,7 @@ async function loadPlugins() {
             </div>
             <div class='plugins'>
             </div>
+            <button id="loadMoreButton" class="button blockeduser" style="width: 100%; text-align: center; margin-top: 9px;">Load More</button>
             <hr>
             <span>${lang().plugins_sub.desc} <a href='https://github.com/3r1s-s/meo-plugins' target="_blank" id='link'>${lang().plugins_sub.link}</a></span>
     `;
@@ -3507,9 +3508,32 @@ async function loadPlugins() {
     const enabledPlugins = JSON.parse(localStorage.getItem('enabledPlugins')) || {};
     let pluginsList = document.querySelector(".plugins");
     pluginsList.innerHTML = '';
-    pluginsData.forEach(plugin => {
-        const isEnabled = enabledPlugins[plugin.name] || false;
-        addPlugin(plugin, isEnabled);
+
+    let currentPage = 0;
+    const pluginsPerPage = 12;
+
+    function displayPlugins() {
+        const start = currentPage * pluginsPerPage;
+        const end = start + pluginsPerPage;
+        const pluginsToShow = pluginsData.slice(start, end);
+
+        pluginsToShow.forEach(plugin => {
+            const isEnabled = enabledPlugins[plugin.name] || false;
+            addPlugin(plugin, isEnabled);
+        });
+
+        if (end >= pluginsData.length) {
+            document.getElementById('loadMoreButton').style.display = 'none';
+        } else {
+            document.getElementById('loadMoreButton').style.display = 'block';
+        }
+    }
+
+    displayPlugins();
+
+    document.getElementById('loadMoreButton').addEventListener('click', () => {
+        currentPage++;
+        displayPlugins();
     });
 
     // Add search functionality
@@ -3523,6 +3547,9 @@ async function loadPlugins() {
     });
 }
 
+let currentPage = 0; // Global page tracker
+const pluginsPerPage = 12; // Global page size
+
 function filterPlugins(pluginsData) {
     const searchInput = document.getElementById('pluginSearch').value.toLowerCase();
     const hideCaution = document.getElementById('hideCautionPluginsToggle').classList.contains('checked');
@@ -3530,14 +3557,44 @@ function filterPlugins(pluginsData) {
     let pluginsList = document.querySelector(".plugins");
     pluginsList.innerHTML = '';
 
-    pluginsData.forEach(plugin => {
+    // Filter plugins based on the search and caution flag
+    const filteredPlugins = pluginsData.filter(plugin => {
         const matchesSearch = plugin.name.toLowerCase().includes(searchInput) || plugin.description.toLowerCase().includes(searchInput);
         const showCaution = !(hideCaution && plugin.flags === '1');
+        return matchesSearch && showCaution;
+    });
 
-        if (matchesSearch && showCaution) {
+    // Reset currentPage only if search input is not empty
+    if (!searchInput) {
+        currentPage = Math.floor(pluginsList.children.length / pluginsPerPage);
+    } else {
+        currentPage = 0;
+    }
+
+    function displayFilteredPlugins() {
+        const start = currentPage * pluginsPerPage;
+        const end = start + pluginsPerPage;
+        const pluginsToShow = filteredPlugins.slice(start, end);
+
+        pluginsToShow.forEach(plugin => {
             const isEnabled = JSON.parse(localStorage.getItem('enabledPlugins'))?.[plugin.name] || false;
             addPlugin(plugin, isEnabled);
+        });
+
+        // Adjust Load More button visibility
+        if (end >= filteredPlugins.length) {
+            document.getElementById('loadMoreButton').style.display = 'none';
+        } else {
+            document.getElementById('loadMoreButton').style.display = 'block';
         }
+    }
+
+    displayFilteredPlugins();
+
+    // Update the load more button for filtered results
+    document.getElementById('loadMoreButton').addEventListener('click', () => {
+        currentPage++;
+        displayFilteredPlugins();
     });
 }
 
