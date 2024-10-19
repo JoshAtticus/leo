@@ -3754,6 +3754,10 @@ input[type="button"]:focus-visible {
     font-family: 'Determination Mono';
 }
 
+.plugin-search.search-input {
+    font-style: normal;
+}
+
 .trending-item {
     display: inline-table;
     margin-top: 10px;
@@ -3762,7 +3766,6 @@ input[type="button"]:focus-visible {
 .trending-topics {
     margin: 10px 0;
 }
-
 
 /* Embeds */
 

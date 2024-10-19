@@ -168,3 +168,42 @@ p {
 .openin:hover {
     text-decoration: none;
 }
+
+.spotify {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 8px;
+}
+
+.spotify-art {
+    height: 4lh;
+    aspect-ratio: 1 / 1;
+    background-position: center;
+    background-size: cover;
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.55) 0px 8px 40px 0px;
+}
+
+.sp-in-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.spotify-info {
+    overflow: hidden;
+    z-index: 2;
+    flex: 1;
+}
+
+.sp-in-list > span {
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
