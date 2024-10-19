@@ -1997,7 +1997,7 @@ possible future styling
 .start-users-online {
     display: flex;
     flex-direction: column;
-    height: 60vh;
+    height: 30vh;
     overflow-y: scroll;
     margin-bottom: var(--button-margin);
     gap: 8px;
@@ -3756,6 +3756,15 @@ input[type="button"]:focus-visible {
 
 .plugin-search.search-input {
     font-style: normal;
+}
+
+.trending-item {
+    display: inline-table;
+    margin-top: 10px;
+}
+
+.trending-topics {
+    margin: 10px 0;
 }
 
 /* Embeds */
