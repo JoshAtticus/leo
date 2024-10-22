@@ -2138,7 +2138,6 @@ function loadGeneral() {
         <div class="stg-section">
             <div class="list">
                 <span class="credit">Tnix, for helping out here and there</span>
-                <span class="credit">ethernet, moral support, and translating</span>
                 <span class="credit">melt, for the original webhook code</span>
                 <span class="credit">theotherhades, for the IP popup</span>
                 <span class="credit">You, ${localStorage.getItem("username")}, for using the client</span>
