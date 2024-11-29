@@ -1,6 +1,8 @@
 # leo
 An awesome fork of meo with more features
 
+rip meower
+
 ## changes
 leo has the following additions to meo so far
 
