@@ -2070,7 +2070,7 @@ function loadrecent(user) {
     pre = "recent";
     recentuser = user;
     if (!recentCache[recentuser]) {
-        fetch(`https://api.meower.org/users/${recentuser}/posts`, {
+        fetch(`https://meower-api.joshatticus.site/users/${recentuser}/posts`, {
             headers: {token: localStorage.getItem("token")}
         })
         .then(response => {
@@ -2147,7 +2147,7 @@ async function loadrecentposts(pageNo) {
     var path = `/users/${recentuser}/posts`;
 
     // Get posts from API
-    const response = await fetch(`https://api.meower.org${path}?page=${pageNo}`, {
+    const response = await fetch(`https://meower-api.joshatticus.site${path}?page=${pageNo}`, {
         headers: {
             token: localStorage.getItem("token")
         }

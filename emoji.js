@@ -198,7 +198,7 @@ async function pushEmojiName(chatid, emojiId) {
     const name = document.getElementById('emoji-nick-input').value; // emoji name probably
     const createBtn = document.getElementById("create-emoji");
     createBtn.innerText = "Updating...";
-    const apiResp = await fetch(`https://api.meower.org/chats/${chatid}/emojis/${emojiId}`, {
+    const apiResp = await fetch(`https://meower-api.joshatticus.site/chats/${chatid}/emojis/${emojiId}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json',
@@ -211,7 +211,7 @@ async function pushEmojiName(chatid, emojiId) {
 }
 
 async function removeEmoji(chatid, emojiId) {
-    const apiResp = await fetch(`https://api.meower.org/chats/${chatid}/emojis/${emojiId}`, {
+    const apiResp = await fetch(`https://meower-api.joshatticus.site/chats/${chatid}/emojis/${emojiId}`, {
         method: "Delete",
         headers: {
             'Content-Type': 'application/json',
@@ -253,7 +253,7 @@ async function uploadEmoji(chatid) {
     const emojiId = (await uploadsResp.json()).id;
 
     createBtn.innerText = "Creating...";
-    const apiResp = await fetch(`https://api.meower.org/chats/${chatid}/emojis/${emojiId}`, {
+    const apiResp = await fetch(`https://meower-api.joshatticus.site/chats/${chatid}/emojis/${emojiId}`, {
         method: "PUT",
         headers: {
             'Content-Type': 'application/json',

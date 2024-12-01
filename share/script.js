@@ -8,7 +8,7 @@ async function loadsharedpost() {
         return;
     }
 
-    const api = `https://api.meower.org/posts?id=${id}`;
+    const api = `https://meower-api.joshatticus.site/posts?id=${id}`;
     console.debug(api);
     try {
         const response = await fetch(api, { headers: { token: localStorage.getItem("token") } });
@@ -145,7 +145,7 @@ function loadpost(p) {
 
 function loadPfp(username) {
     return new Promise((resolve, reject) => {
-        fetch(`https://api.meower.org/users/${username}`)
+        fetch(`https://meower-api.joshatticus.site/users/${username}`)
             .then(userResp => userResp.json())
             .then(userData => {
                 let pfpElement;
@@ -190,7 +190,7 @@ async function loadreply(postOrigin, replyid) {
     const betterMeowerRegex = /@([\w-]+)\[([a-zA-Z0-9]+)\]/g;
 
     try {
-        const replyresp = await fetch(`https://api.meower.org/posts?id=${replyid}`);
+        const replyresp = await fetch(`https://meower-api.joshatticus.site/posts?id=${replyid}`);
         let replydata;
         if (replyresp.status === 404) {
             replydata = { p: "[original message was deleted]" };
