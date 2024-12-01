@@ -81,6 +81,7 @@ const en = {
     "meo_messagebox": Math.random() < 1/25 ? "Whar's on your mind?" : "What's on your mind?",
     "meo_goanywhere": "Where would you like to go?",
     "meo_welcome": "Welcome!",
+    "meo_server": "You're using the JoshAtticus Meower server, if you haven't used it before, you'll need to create an account.",
     "meo_hello": "Hello!", // update
     "meo_userson": "users online",
     "meo_members": "members",
