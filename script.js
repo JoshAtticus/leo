@@ -579,6 +579,7 @@ function loadLogin() {
         `<div class='login'>
         <div class='login-inner'>
                 <h2 id="login-header" class="login-header">${lang().meo_welcome}</h2>
+                <h3>${lang().meo_server}</h3>
                 <input type="text" id="userinput" placeholder="${lang().meo_username}" class="login-text text" aria-label="username input" autocomplete="username">
                 <input type="password" id="passinput" placeholder="${lang().meo_password}" class="login-text text" aria-label="password input" autocomplete="current-password">
                 <input type="text" id="otpinput" placeholder="${lang().meo_totp}" class="login-text text" aria-label="one-time-code input" autocomplete="one-time-code" style="display:none;">
