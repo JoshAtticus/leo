@@ -4,7 +4,7 @@ function fetchprofile() {
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get('u');
 
-    fetch(`https://api.meower.org/users/${username}`)
+    fetch(`https://meower-api.joshatticus.site/users/${username}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('User not found');
@@ -237,7 +237,7 @@ function updateprofile() {
         }
     };
 
-    xhttp.open("PATCH", "https://api.meower.org/me/config");
+    xhttp.open("PATCH", "https://meower-api.joshatticus.site/me/config");
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhttp.setRequestHeader("token", token);
@@ -272,7 +272,7 @@ function updateprofile() {
 
 function opendm(user) {
     const token = localStorage.getItem("token");
-    const url = `https://api.meower.org/users/${user}/dm`;
+    const url = `https://meower-api.joshatticus.site/users/${user}/dm`;
 
     fetch(url, {
         method: 'GET',
